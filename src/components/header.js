@@ -12,7 +12,7 @@ const Header = () => {
         site {
           siteMetadata {
             title,
-            author
+            headline
           }
         }
       }      
@@ -21,7 +21,7 @@ const Header = () => {
     return (
         <header className={headerStyles.header}>
             <h1><Link className={headerStyles.title} to="/">
-                {data.site.siteMetadata.author}
+                {data.site.siteMetadata.headline}
             </Link></h1>
             <nav>
                 <ul className={headerStyles.navList}>

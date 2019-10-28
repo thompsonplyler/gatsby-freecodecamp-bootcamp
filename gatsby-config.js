@@ -7,9 +7,18 @@
 module.exports = {
   siteMetadata: {
     title: 'Full-Stack Bootcamp',
-    author: 'Thompson Plyler - Web Developer'
+    headline: 'Thompson Plyler - Web Developer',
+    author: 'Thompson Plyler',
+    description: 'A test website using GatsbyJS'
   },
   plugins: [
-    'gatsby-plugin-sass'
+    'gatsby-plugin-sass',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'src',
+        path: `${__dirname}/src/`
+      }},
+      'gatsby-transformer-remark'
   ]
 }
