@@ -5,6 +5,8 @@ date: "2019-10-28"
 
 I just launched a new bootcamp. 
 
+![couple](./couple.jpg)
+
 ## Topics Covered
 
 1. Gatsby
