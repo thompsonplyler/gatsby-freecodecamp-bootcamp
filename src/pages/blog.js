@@ -24,15 +24,16 @@ const BlogPage = () => {
       }  
     `)
 
-    console.log(data.allContentfulBlogPost.edges)
     let bullets = data.allContentfulBlogPost.edges.map(item => {
         const { title, publishedDate, slug } = item.node
         return <li className={blogStyles.post}>
-            <h2>
-                <Link to={`/blog/${slug}`}>
+            <Link to={`/blog/${slug}`}>
+                <h2>
                     {title}
-                </Link>
-            </h2>
+
+                </h2    >
+                <p>{publishedDate}</p>
+            </Link>
         </li>
     })
 
