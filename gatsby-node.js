@@ -15,7 +15,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
 
   const res = await graphql(`
         query {
-          allContentfulBlogPost{
+          allWordpressPost{
             edges{
               node{
                slug
@@ -25,7 +25,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
         }
       `)
 
-  res.data.allContentfulBlogPost.edges.forEach(edge => {
+  res.data.allWordpressPost.edges.forEach(edge => {
     createPage({
       component: blogTemplate,
       path: `/blog/${edge.node.slug}`,

@@ -6,12 +6,10 @@ import Head from '../components/head'
 
 export const query = graphql`
 query($slug:String!){
-  contentfulBlogPost (slug: {eq: $slug}){
+  wordpressPost (slug: {eq: $slug}){
     title
-    publishedDate(formatString: "MMMM Do,YYYY")
-    body{
-      json
-    }
+    date(formatString: "MMMM Do,YYYY")
+    content
   }
 }
 `
@@ -35,8 +33,7 @@ query($slug:String!){
 // `
 
 const Blog = (props) => {
-  const { title, publishedDate, body } = props.data.contentfulBlogPost
-  const { json } = body
+  const { title, date, content } = props.data.wordpressPost
   const options = {
     renderNode: {
       "embedded-asset-block": (node) => {
@@ -46,13 +43,13 @@ const Blog = (props) => {
       }
     }
   }
-  
+
   return (
     <Layout>
-      <Head title={title}/>
+      <Head title={title} />
       <h1>{title}</h1>
-      <p>{publishedDate}</p>
-      {documentToReactComponents(json, options)}
+      <p>{date}</p>
+      <div dangerouslySetInnerHTML={{ __html: content }}></div>
     </Layout>
   )
 

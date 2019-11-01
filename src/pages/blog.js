@@ -5,52 +5,46 @@ import blogStyles from './blog.module.scss'
 import Head from '../components/head'
 
 const BlogPage = () => {
-    const data = useStaticQuery(graphql`
+  const data = useStaticQuery(graphql`
     query {
-      allContentfulBlogPost (
-        sort:{
-          fields: publishedDate,
-          order:DESC
-        }
-        )
-        {
+      allWordpressPost {
           edges {
             node {
               title
               slug
-              publishedDate(formatString:"MMMM Do,YYYY")
+              date(formatString:"MMMM Do, YYYY")
             }
           }
         }
       }  
       `)
-      
-      let bullets = data.allContentfulBlogPost.edges.map(item => {
-        const { title, publishedDate, slug } = item.node
-        return <li className={blogStyles.post}>
-            <Link to={`/blog/${slug}`}>
-                <h2>
-                    {title}
 
-                </h2    >
-                <p>{publishedDate}</p>
-            </Link>
-        </li>
-    })
-    
-    return (
-      
-      <Layout>
-      <Head title="Blog"/>
+  let bullets = data.allWordpressPost.edges.map(item => {
+    const { title, date, slug } = item.node
+    return <li className={blogStyles.post}>
+      <Link to={`/blog/${slug}`}>
+        <h2>
+          {title}
 
-            <h1>Blog</h1>
-            <ol className={blogStyles.posts}>
-                {bullets}
-            </ol>
+        </h2    >
+        <p>{date}</p>
+      </Link>
+    </li>
+  })
 
-        </Layout>
+  return (
 
-    )
+    <Layout>
+      <Head title="Blog" />
+
+      <h1>Blog</h1>
+      <ol className={blogStyles.posts}>
+        {bullets}
+      </ol>
+
+    </Layout>
+
+  )
 
 }
 
