@@ -11,10 +11,13 @@ const Head = ({title}) => {
                 title
             }
         }
+        wordpressSiteMetadata{
+            name
+            }
     }
     `)
 
-    const pageTitle = data.site.siteMetadata.title
+    const pageTitle = data.wordpressSiteMetadata.name
 
     return (
         <Helmet title={`${title} | ${pageTitle}`}/>

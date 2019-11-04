@@ -5,6 +5,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
   // 'The resolve function itself is going to add everything up front
   // to create an asbolute path from the root of the hard drive.
   const blogTemplate = path.resolve(`./src/templates/blog.js`)
+  const pageTemplate = path.resolve(`./src/templates/page.js`)
 
   // contrast this with the graphql we import from in header.js
   // this is a function into which we pass a graphql query
@@ -22,6 +23,14 @@ module.exports.createPages = async ({ graphql, actions }) => {
               }
             }
           }
+          allWordpressPage {
+            edges {
+                node{
+                    title
+                    slug
+                }
+            }
+        }
         }
       `)
 
@@ -29,6 +38,16 @@ module.exports.createPages = async ({ graphql, actions }) => {
     createPage({
       component: blogTemplate,
       path: `/blog/${edge.node.slug}`,
+      context: {
+        slug: edge.node.slug
+      }
+    })
+  })
+
+  res.data.allWordpressPage.edges.forEach(edge=>{
+    createPage({
+      component: pageTemplate,
+      path: `/${edge.node.slug}`,
       context: {
         slug: edge.node.slug
       }
