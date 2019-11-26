@@ -28,6 +28,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
                 node{
                     title
                     slug
+                    wordpress_parent
                 }
             }
         }
@@ -44,13 +45,25 @@ module.exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  res.data.allWordpressPage.edges.forEach(edge=>{
-    createPage({
-      component: pageTemplate,
-      path: `/${edge.node.slug}`,
-      context: {
-        slug: edge.node.slug
-      }
-    })
+  res.data.allWordpressPage.edges.forEach(edge => {
+    const { wordpress_parent } = edge.node
+    if (wordpress_parent < 1) {
+      createPage({
+        component: pageTemplate,
+        path: `/${edge.node.slug}`,
+        context: {
+          slug: edge.node.slug
+        }
+      })
+    }
+    else {
+      createPage({
+        component: pageTemplate,
+        path: `past-books/${edge.node.slug}`,
+        context: {
+          slug: edge.node.slug
+        }
+      })
+    }
   })
 }

@@ -37,7 +37,7 @@ const BlogPage = () => {
     <Layout>
       <Head title="Blog" />
 
-      <h1>Blog</h1>
+      <h1>PSBC News</h1>
       <ol className={blogStyles.posts}>
         {bullets}
       </ol>

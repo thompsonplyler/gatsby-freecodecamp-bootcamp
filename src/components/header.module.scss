@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Alegreya+SC|Amiri|Cinzel|Playfair+Display+SC&display=swap');
 
 .link {
-    color: #999;
+    color: rgb(255, 255, 255);
 
 }
 
 .header {
     padding: 1rem 0 3rem;
+    overflow: hidden;
 }
 
 .title {
@@ -23,7 +24,7 @@
 }
 
 .nav-item {
-    color: #999;
+    color: rgb(255, 255, 255);
     font-size: .9rem;
     margin-right: 1.3rem;
     text-decoration: none;
@@ -36,4 +37,21 @@
 
 .active-nav-item {
     color: #333
+}
+
+.logo {
+    max-width: 250px;
+}
+
+.logo:hover {
+    filter: opacity(75%)
+}
+
+@media only screen and (max-width: 400px) {
+    .logo {
+        max-width: 100px;
+    }
+    .nav-item {
+        font-size: .7rem;
+    }
 }

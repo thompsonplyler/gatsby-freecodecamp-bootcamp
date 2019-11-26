@@ -6,17 +6,25 @@
 
 module.exports = {
   siteMetadata: {
-    title: 'Full-Stack Bootcamp',
-    headline: 'Thompson Plyler - Web Developer',
-    author: 'Thompson Plyler',
-    description: 'A test website using GatsbyJS'
+    title: 'Princeton Sports Book Club',
+    headline: 'Princeton Sports Book Club',
+    author: 'Princeton Sports Book Club',
+    description: 'A celebration of fatherhood and community-building through sports and literature.'
   },
   plugins: [
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/ // See below to configure properly
+        }
+      }
+    },
     {
       resolve: "gatsby-source-wordpress",
       options: {
 
-        baseUrl: "http://midamericarad.com/",
+        baseUrl: "http://localhost/wp-test",
 
         protocol: "http",
 
@@ -38,8 +46,8 @@ module.exports = {
         perPage: 100,
 
         searchAndReplaceContentUrls: {
-          sourceUrl: "https://source-url.com",
-          replacementUrl: "https://replacement-url.com",
+          sourceUrl: "http://localhost/wp-test/",
+          replacementUrl: "http://localhost:8000/",
         },
         concurrentRequests: 10,
         includedRoutes: [

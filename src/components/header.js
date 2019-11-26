@@ -3,6 +3,7 @@ import { Link, graphql, useStaticQuery } from 'gatsby'
 
 //import './header.module.scss'
 import headerStyles from './header.module.scss'
+import PsbcLogo from '../assets/images/psbc.svg'
 
 
 
@@ -18,6 +19,8 @@ const Header = () => {
               allWordpressPage {
                   edges {
                       node{
+                          wordpress_id
+                          wordpress_parent
                           title
                           slug
                       }
@@ -29,21 +32,30 @@ const Header = () => {
             }      
     `)
 
-    const pageLinks = data.allWordpressPage.edges.map(edge=>{
-        return <li><Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to={edge.node.slug}>{edge.node.title}</Link> </li>
+    const pageLinks = data.allWordpressPage.edges.map(edge => {
+        let { wordpress_parent, wordpress_id, title } = edge.node
+        console.log("Wordpress ID: ", wordpress_id, "\n", "Wordpress Title: ", title)
+        return (title === "ABOUT") ?
+            null :
+            (title === "NEWS") ?
+                <li>
+                    <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/blog">NEWS</Link>
+                </li> :
+                (wordpress_parent < 1) ?
+                    <li>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to={edge.node.slug}>{edge.node.title}</Link>
+                    </li>
+                    : null
     })
 
     return (
         <header className={headerStyles.header}>
-            <h1><Link className={headerStyles.title} to="/home">
-                {data.wordpressSiteMetadata.name}
+            <h1><Link className={headerStyles.title} to="/about">
+                <PsbcLogo className={headerStyles.logo}></PsbcLogo>
+                {/* {data.wordpressSiteMetadata.name} */}
             </Link></h1>
             <nav>
                 <ul className={headerStyles.navList}>
-                    {/* <li><Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/">Home</Link></li>
-                    <li><Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/blog">Blog</Link></li>
-                    <li><Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/about">About</Link></li>
-                    <li><Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/contact">Contact</Link></li> */}
                     {pageLinks}
                 </ul>
             </nav>
